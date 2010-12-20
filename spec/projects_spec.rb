@@ -1,13 +1,13 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
-describe "Ticketmaster::Provider::Trac::Project" do
+describe "Ticketmaster::Provider::TracProvider::Project" do
 
-  before(:all) do
-    @klass = TicketMaster::Provider::Trac::Project
+  before(:all) do 
+    @klass = TicketMaster::Provider::TracProvider::Project
   end
 
   before(:each) do
-    @trac = TicketMaster::Provider::Trac.new('http://trac.edgewall.org',{:login => 'cored', :password => 'jdudk'})
+    @trac = TicketMaster.new(:trac, {:username => 'cored', :password => 'afdzk', :url => 'http://trac.edgewall.org/demo-0.11'})
   end
 
   it "should be able to load all projects" do
