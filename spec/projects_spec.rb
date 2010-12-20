@@ -1,9 +1,9 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
-describe "Ticketmaster::Provider::Trac::Project" do
+describe "Ticketmaster::Provider::TracProvider::Project" do
 
-  before(:all) do
-    @klass = TicketMaster::Provider::Trac::Project
+  before(:all) do 
+    @klass = TicketMaster::Provider::TracProvider::Project
   end
 
   before(:each) do
