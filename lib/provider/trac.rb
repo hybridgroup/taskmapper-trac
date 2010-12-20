@@ -12,7 +12,9 @@ module TicketMaster::Provider
     def authorize(auth = {})
       @authentication ||= TicketMaster::Authenticator.new(auth)
       auth = @authentication
-      @trac = Trac.new(@url, auth.login, auth.password)
+      if (auth.url.nil? and auth.username.nil?)
+        raise "Please provide at least an url and username"
+      end
     end
 
     # declare needed overloaded methods here
