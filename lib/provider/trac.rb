@@ -15,7 +15,7 @@ module TicketMaster::Provider
     end
 
     # declare needed overloaded methods here
-    def self.projects(*options)
+    def projects(*options)
       []
     end
 
