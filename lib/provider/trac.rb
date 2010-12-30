@@ -19,5 +19,18 @@ module TicketMaster::Provider
        [Project.new({:url => @authentication.url, :username => @authentication.username})]  
     end
 
+    def project(*options)
+      unless options.empty?
+        Project.new({:url => @authentication.url, :username => @authentication.username, :name => project_name})
+      else
+        TicketMaster::Provider::Trac::Project
+      end
+    end
+
+    private
+    def project_name
+      @authentication.url.split(/\//)[-1]
+    end
+
   end
 end

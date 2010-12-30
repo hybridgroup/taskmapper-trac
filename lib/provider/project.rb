@@ -32,6 +32,13 @@ module TicketMaster::Provider
         end
       end
 
+      def self.find(*options)
+        mode = options.first
+        if mode.is_a? String
+          self.new({:subdomain => 'http://dummy.trac', :username => 'dummy'})
+        end
+      end
+
     end
   end
 end
