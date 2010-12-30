@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 describe "Ticketmaster::Provider::Trac::Project" do
 
   before(:all) do 
-    @project_id = 'demo-0.11'  
+    @project_id = 'cored-project'  
   end
 
   before(:each) do

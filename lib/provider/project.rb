@@ -5,13 +5,14 @@ module TicketMaster::Provider
     # 
     class Project < TicketMaster::Provider::Base::Project
       # declare needed overloaded methods here
+      API = TracAPI
       
       def initialize(*object)
         if object.first
           object = object.first
           @system_data = {:client => object}
           unless object.is_a? Hash
-            hash = {:repository => object.subdomain,
+            hash = {:repository => object.url,
                     :user => object.username}
             
           else
@@ -35,8 +36,40 @@ module TicketMaster::Provider
       def self.find(*options)
         mode = options.first
         if mode.is_a? String
-          self.new({:subdomain => 'http://dummy.trac', :username => 'dummy'})
+          self.new({:url => API.url, :username => "#{API.username}-project"})
         end
+      end
+
+      def ticket(*options)
+        unless options.empty?
+          options = options.first
+          if options.is_a? Hash
+            TicketMaster::Provider::Trac::Ticket.find_by_id API.api.tickets.query(options).first
+          end
+        else
+          TicketMaster::Provider::Trac::Ticket
+        end
+      end
+
+      def ticket!(*options)
+        options = options.first
+        TicketMaster::Provider::Trac::Ticket.create options
+      end
+
+      def tickets(*options)
+        mode = options.first
+        if options.empty?
+          collect_tickets(API.api.tickets.list)
+        elsif mode.is_a? Array
+          collect_tickets(mode)
+        elsif mode.is_a? Hash
+          collect_tickets(API.api.tickets.query(mode))
+        end
+      end
+
+      private
+      def collect_tickets(tickets)
+        tickets.collect { |ticket_id| TicketMaster::Provider::Trac::Ticket.find_by_id ticket_id}
       end
 
     end

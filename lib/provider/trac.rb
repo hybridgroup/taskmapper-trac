@@ -12,6 +12,7 @@ module TicketMaster::Provider
       @authentication ||= TicketMaster::Authenticator.new(auth)
       auth = @authentication
       @trac = ::Trac.new(auth.url, auth.username, auth.password)
+      TracAPI.new @trac, auth.url, auth.username
     end
 
     # declare needed overloaded methods here
@@ -21,15 +22,10 @@ module TicketMaster::Provider
 
     def project(*options)
       unless options.empty?
-        Project.new({:url => @authentication.url, :username => @authentication.username, :name => project_name})
+        Project.new({:url => @authentication.url, :username => @authentication.username, :name => "#{@authentication.username}-project"})
       else
         TicketMaster::Provider::Trac::Project
       end
-    end
-
-    private
-    def project_name
-      @authentication.url.split(/\//)[-1]
     end
 
   end
