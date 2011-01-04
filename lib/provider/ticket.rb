@@ -49,9 +49,17 @@ module TicketMaster::Provider
         end
       end
 
-      def comments
-        warn "Trac doesn't support comments"
-        []
+      def comments(*options)
+        comments = CommentUtil.new(self.id).comments
+        if options.empty?
+          comments.collect do |comment|
+            TicketMaster::Provider::Trac::Comment.new comment
+          end
+        elsif options.first.is_a? Array
+          comments.collect do |comment|
+            TicketMaster::Provider::Trac::Comment.new comment if options.first.any? { |id| id == comment[:id] }
+          end
+        end
       end
 
       def comment

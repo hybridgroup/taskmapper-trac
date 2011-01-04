@@ -16,6 +16,7 @@ begin
     gem.add_dependency "activeresource", ">= 2.3.2"
     gem.add_dependency "addressable", ">= 2.1.2"
     gem.add_dependency "trac4r"
+    gem.add_dependency "nokogiri"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new

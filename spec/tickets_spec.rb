@@ -40,9 +40,9 @@ describe "Ticketmaster::Provider::Trac::Ticket" do
     @ticket.summary.should == 'test'
   end
 
-  it "should be able to create a new ticket" do
-    @ticket = @project.ticket!({:summary => 'Testing', :description => "Here we go"})
-    @ticket.should be_an_instance_of(@klass)
-  end
+ # it "should be able to create a new ticket" do
+ #   @ticket = @project.ticket!({:summary => 'Testing', :description => "Here we go"})
+ #   @ticket.should be_an_instance_of(@klass)
+ # end
 
 end
