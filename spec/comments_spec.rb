@@ -12,8 +12,6 @@ describe "Ticketmaster::Provider::Trac::Comment" do
     @ticket.comments.should be_an_instance_of(Array)
     @ticket.comments.first.should be_an_instance_of(@klass)
   end
-<<<<<<< HEAD
-=======
 
   it "should be able to load all comments based on id's" do
     @comments = @ticket.comments([1,2])
@@ -22,5 +20,4 @@ describe "Ticketmaster::Provider::Trac::Comment" do
     @comments.last.id.should == 2
     @comments[1].should be_an_instance_of(@klass)
   end
->>>>>>> adding-comments
 end
