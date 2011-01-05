@@ -20,4 +20,12 @@ describe "Ticketmaster::Provider::Trac::Comment" do
     @comments.last.id.should == 2
     @comments[1].should be_an_instance_of(@klass)
   end
+
+  it "should be able to load comments throught attributes" do 
+    @comments = @ticket.comments(:ticket_id => 1)
+    @comments.should be_an_instance_of(Array)
+    @comments.first.id.should == 1
+    @comments.last.id.should == 2
+    @comments[1].should be_an_instance_of(@klass)
+  end
 end

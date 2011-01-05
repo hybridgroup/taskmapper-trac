@@ -50,15 +50,24 @@ module TicketMaster::Provider
       end
 
       def comments(*options)
-        comments = CommentUtil.new(self.id).comments
-        if options.empty?
+        comments = CommentUtil.new(self.id).comments.collect { |comment| TicketMaster::Provider::Trac::Comment.new comment }
+        if options.first.is_a? Array
           comments.collect do |comment|
-            TicketMaster::Provider::Trac::Comment.new comment
+            comment if options.first.any? { |id| id == comment.id }
           end
-        elsif options.first.is_a? Array
-          comments.collect do |comment|
-            TicketMaster::Provider::Trac::Comment.new comment if options.first.any? { |id| id == comment[:id] }
+        elsif options.first.is_a? Hash
+          hash = options.first
+          comms = []
+          comments.each do |comment|
+            hash.each_pair do |key, value|
+              if comment[key.to_sym] == hash[key.to_sym]
+                comms << comment 
+              end
+            end
           end
+          comms
+        else
+          comments
         end
       end
 
