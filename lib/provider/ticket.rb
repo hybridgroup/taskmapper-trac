@@ -50,8 +50,7 @@ module TicketMaster::Provider
       end
 
       def comments
-        warn "Trac doesn't support comments"
-        []
+        CommentUtil.new(self.id).comments
       end
 
       def comment

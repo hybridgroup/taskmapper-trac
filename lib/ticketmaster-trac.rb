@@ -1,4 +1,6 @@
 require 'trac4r'
+require 'nokogiri'
+require 'open-uri'
 
 require 'lib/trac/trac'
 
