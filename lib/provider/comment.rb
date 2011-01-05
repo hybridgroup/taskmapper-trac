@@ -17,7 +17,6 @@ module TicketMaster::Provider
                     :author => object.author,
                     :body => object.body,
                     :ticket_id => object.ticket_id,
-                    :project_id => object.project_id,
                     :created_at => object.created_at,
                     :updated_at => object.updated_at}
           else

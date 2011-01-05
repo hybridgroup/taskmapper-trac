@@ -32,9 +32,27 @@ class CommentUtil
   end
 
   def comments
-    @doc.css('div.change').collect do |value|
-      value.content
+    comment_id = 0
+    @doc.css('h3.change a.timeline').collect do |value|
+      body = @doc.css('div.comment p')
+      comment_id += 1
+      build_comment_hash(value, comment_id, body[comment_id-1].text)
     end
+  end
+
+  private
+  def build_comment_hash(value, comment_id, body)
+    comment = {}
+    comment[:created_at] = date_from_attributes(value)
+    comment[:updated_at] = date_from_attributes(value)
+    comment[:ticket_id] = @ticket_id
+    comment[:body] = body
+    comment[:id] = comment_id
+    comment
+  end
+
+  def date_from_attributes(value)
+    value.attributes["title"].value.split(/\s/)[0]
   end
 end
 
