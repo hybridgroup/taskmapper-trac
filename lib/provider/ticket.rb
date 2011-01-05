@@ -57,15 +57,9 @@ module TicketMaster::Provider
           end
         elsif options.first.is_a? Hash
           hash = options.first
-          comms = []
-          comments.each do |comment|
-            hash.each_pair do |key, value|
-              if comment[key.to_sym] == hash[key.to_sym]
-                comms << comment 
-              end
-            end
+          comments.select do |key, value|
+            hash[key] == value
           end
-          comms
         else
           comments
         end
