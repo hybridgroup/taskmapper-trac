@@ -28,4 +28,21 @@ describe "Ticketmaster::Provider::Trac::Comment" do
     @comments.last.id.should == 2
     @comments[1].should be_an_instance_of(@klass)
   end
+
+  it "should be able to load a comment based on id" do
+    @comment = @ticket.comment(2)
+    @comment.should be_an_instance_of(@klass)
+    @comment.id.should == 2
+  end
+
+  it "should return the comment class" do
+    @ticket.comment.should be_an_instance_of(@klass)
+  end
+
+  it "should be able to load a comment using attributes" do
+    @comment = @ticket.comment(:ticket_id => 1)
+    @comment.should be_an_instance_of(@klass)
+    @comment.id.should == 1
+  end
+
 end
