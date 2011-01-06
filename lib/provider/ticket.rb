@@ -52,7 +52,7 @@ module TicketMaster::Provider
       def comments(*options)
         comments = CommentUtil.new(self.id).comments.collect { |comment| TicketMaster::Provider::Trac::Comment.new comment }
         if options.first.is_a? Array
-          comments.collect do |comment|
+          comments.select do |comment|
             comment if options.first.any? { |id| id == comment.id }
           end
         elsif options.first.is_a? Hash
