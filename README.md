@@ -22,6 +22,10 @@ Right now Trac doesn't support project handling, that's why you will use a proje
     
 	ticket = project.ticket!({:summary => "New ticket", :description=> "Body for the very new ticket"}, attributes) # summary and description are mandatory fields the attributes hash will contain all the optional info that you need for your ticket, have to use the fields provided by Trac api.
 
+== Finding comments
+      
+        comments = project.tickets.first.comments # All the tickets facility for searchs are available for comments as well
+
 
 ## Requirements
 
