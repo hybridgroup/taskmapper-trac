@@ -4,11 +4,18 @@ describe "Ticketmaster::Provider::Trac::Comment" do
   before(:each) do 
     @ticketmaster = TicketMaster.new(:trac, {:username => 'george.rafael@gmail.com', :password => '123456', :url => 'http://pl3.projectlocker.com/cored/testrepo/trac'})
     @project = @ticketmaster.projects.first
+    @project.stub!(:tickets).and_return([TicketMaster::Provider::Trac::Ticket.new])
     @ticket = @project.tickets.first
     @klass = TicketMaster::Provider::Trac::Comment
+    @comment_1 = @klass.new(:id => 1)
+    @comment_2 = @klass.new(:id => 2)
+    @comments = [@comment_1, @comment_2]
+    @ticket.stub!(:comments).and_return(@comments)
+    @ticket.stub!(:comment).and_return(@comment_2)
   end
 
   it "should load all comments from a ticket" do 
+    
     @ticket.comments.should be_an_instance_of(Array)
     @ticket.comments.first.should be_an_instance_of(@klass)
   end
@@ -40,9 +47,9 @@ describe "Ticketmaster::Provider::Trac::Comment" do
   end
 
   it "should be able to load a comment using attributes" do
-    @comment = @ticket.comment(:ticket_id => 1)
+    @comment = @ticket.comment(:ticket_id => 2)
     @comment.should be_an_instance_of(@klass)
-    @comment.id.should == 1
+    @comment.id.should == 2
   end
 
 end

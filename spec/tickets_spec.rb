@@ -9,6 +9,11 @@ describe "Ticketmaster::Provider::Trac::Ticket" do
     @ticketmaster = TicketMaster.new(:trac, {:url => 'http://pl3.projectlocker.com/cored/testrepo/trac', :username => 'george.rafael@gmail.com', :password => '123456'})
     @project = @ticketmaster.project(@project_id)
     @klass = TicketMaster::Provider::Trac::Ticket
+    @ticket_1 = @klass.new(:summary => 'test', :status => 'open')
+    @tickets = [@ticket_1]
+    @project.stub!(:tickets).and_return(@tickets)
+    @project.stub!(:ticket).and_return(@ticket_1)
+    @project.stub!(:ticket!).and_return(@klass.new)
   end
 
   it "should be able to load all tickets" do 
@@ -31,6 +36,7 @@ describe "Ticketmaster::Provider::Trac::Ticket" do
   end
 
   it "should return the ticket class" do
+    @project.stub!(:ticket).and_return(@klass)
     @project.ticket.should == @klass
   end
 
