@@ -53,8 +53,10 @@ module TicketMaster::Provider
         end
       end
 
-      def self.find_by_id(id)
-        self.new API.api.tickets.get id
+      def self.find_by_id(id, project_id)
+        object = API.api.tickets.get(id)
+        puts object.inspect
+        self.new object
       end
 
       def self.create(*options)

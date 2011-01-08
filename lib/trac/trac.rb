@@ -29,6 +29,7 @@ class CommentUtil
 
   def initialize(ticket_id)
     @doc = Nokogiri::HTML(open("#{TracAPI.url}/ticket/#{ticket_id}", :http_basic_authentication=>[TracAPI.username, TracAPI.password]))
+    @ticket_id = ticket_id
   end
 
   def comments

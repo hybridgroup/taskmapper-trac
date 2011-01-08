@@ -36,7 +36,7 @@ module TicketMaster::Provider
       def self.find(*options)
         mode = options.first
         if mode.is_a? String
-          self.new({:url => API.url, :username => "#{API.username}-project"})
+          self.new({:url => API.url, :username => API.username, :name=> "#{API.username}-project"})
         end
       end
 
@@ -44,7 +44,7 @@ module TicketMaster::Provider
         unless options.empty?
           options = options.first
           if options.is_a? Hash
-            TicketMaster::Provider::Trac::Ticket.find_by_id API.api.tickets.query(options).first
+            TicketMaster::Provider::Trac::Ticket.find_by_id(API.api.tickets.query(options).first, self[:name])
           end
         else
           TicketMaster::Provider::Trac::Ticket
@@ -69,7 +69,7 @@ module TicketMaster::Provider
 
       private
       def collect_tickets(tickets)
-        tickets.collect { |ticket_id| TicketMaster::Provider::Trac::Ticket.find_by_id ticket_id}
+        tickets.collect { |ticket_id| TicketMaster::Provider::Trac::Ticket.find_by_id(ticket_id, self[:name]) }
       end
 
     end
