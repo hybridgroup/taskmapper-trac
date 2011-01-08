@@ -9,7 +9,8 @@ module TicketMaster::Provider
       API = TracAPI
       def initialize(*object)
         if object.first
-          object = object.first
+          object = object.shift
+          project_id = object.shift
           unless object.is_a? Hash
             @system_data = {:client => object}
             hash = {:id => object.id,
@@ -26,6 +27,7 @@ module TicketMaster::Provider
               :assignee => object.owner,
               :requestor => object.reporter,
               :title => object.summary,
+              :project_id => project_id,
               :description => object.description,
               :keywords => object.keywords,
               :created_at => object.created_at,
@@ -54,9 +56,7 @@ module TicketMaster::Provider
       end
 
       def self.find_by_id(id, project_id)
-        object = API.api.tickets.get(id)
-        puts object.inspect
-        self.new object
+        self.new API.api.tickets.get(id), project_id
       end
 
       def self.create(*options)
