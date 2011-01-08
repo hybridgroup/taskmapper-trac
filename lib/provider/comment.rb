@@ -25,6 +25,22 @@ module TicketMaster::Provider
           super(hash)
         end
       end
+
+      def created_at
+        begin
+          Time.parse(self[:created_at])
+        rescue
+          self[:created_at]
+        end
+      end
+
+      def updated_at
+        begin
+          Time.parse(self[:updated_at])
+        rescue
+          self[:updated_at]
+        end
+      end
     end
   end
 end
