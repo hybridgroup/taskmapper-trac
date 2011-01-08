@@ -17,7 +17,7 @@ module TicketMaster::Provider
 
     # declare needed overloaded methods here
     def projects(*options)
-       [Project.new({:url => @authentication.url, :username => @authentication.username})]  
+       [Project.new({:url => @authentication.url, :username => @authentication.username}, :name => "#{@authentication.username}-project")]  
     end
 
     def project(*options)

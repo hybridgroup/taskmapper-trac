@@ -23,6 +23,9 @@ module TicketMaster::Provider
               :owner => object.owner,
               :cc => object.cc,
               :summary => object.summary,
+              :assignee => object.owner,
+              :requestor => object.reporter,
+              :title => object.summary,
               :description => object.description,
               :keywords => object.keywords,
               :created_at => object.created_at,
@@ -31,6 +34,22 @@ module TicketMaster::Provider
             hash = object
           end
           super(hash)
+        end
+      end
+
+      def created_at
+        begin
+          normalize_datetime(self[:created_at]) 
+        rescue
+          self[:created_at]
+        end
+      end
+
+      def updated_at
+        begin
+          normalize_datetime(self[:updated_at])
+        rescue
+          self[:updated_at]
         end
       end
 
@@ -79,8 +98,13 @@ module TicketMaster::Provider
       end
 
       def comment!
-        warn "Trac doesn't support comments"
+        warn "Trac doesn't support creation of comments"
         [] 
+      end
+
+      private
+      def normalize_datetime(datetime)
+        Time.mktime(datetime.year, datetime.month, datetime.day, datetime.hour, datetime.min, datetime.sec)
       end
     end
   end
