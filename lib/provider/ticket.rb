@@ -57,7 +57,9 @@ module TicketMaster::Provider
       end
 
       def self.find_by_id(id, project_id)
-        self.new API.api.tickets.get(id), project_id
+        retryable(:tries => 5) do 
+          self.new API.api.tickets.get(id), project_id
+        end
       end
 
       def self.create(*options)
@@ -108,6 +110,20 @@ module TicketMaster::Provider
       private
       def normalize_datetime(datetime)
         Time.mktime(datetime.year, datetime.month, datetime.day, datetime.hour, datetime.min, datetime.sec)
+      end
+
+      # Extracted this code from facet http://api.mackframework.com/mack-facets/classes/Kernel.html
+      def self.retryable(options = {}, &block)
+        opts = { :tries => 1, :on => Exception }.merge(options)
+
+        retry_exception, retries = opts[:on], opts[:tries]
+
+        begin
+          return yield
+        rescue retry_exception
+          retry if (retries -= 1) > 0
+        end
+        yield
       end
     end
   end
