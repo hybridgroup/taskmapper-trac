@@ -5,24 +5,24 @@ This is a provider for [ticketmaster](http://ticketrb.com). It provides interope
 # Usage and Examples
 
 First we have to instantiate a new ticketmaster instance, your trac installation should have api access enable:
-    trac = TicketMaster.new(:trac, {:username=> 'foo', :password => "bar", :url => "http://tracserver/project"})
+    trac = TicketMaster.new(:trac, {:username=> 'foo', :password => "bar", :url => "http://tracserver/username/project/trac"}) 
 
 If you do not pass in the url, username and password, you won't get any information.
 
-== Finding Projects(Repositories)
+## Finding Projects(Repositories)
 
 Right now Trac doesn't support project handling, that's why you will use a project holder which consist of your username and url for the Trac instance.
 	
-== Finding Tickets(Issues)
+## Finding Tickets(Issues)
 
     tickets = project.tickets # All tickets
     ticket = project.tickets(:status => '!closed') # All non closed tickets, you can specified any type of attributes field based on Trac scheme. ex. :component => 'Web' 
 
-== Open Tickets
+## Open Tickets
     
 	ticket = project.ticket!({:summary => "New ticket", :description=> "Body for the very new ticket"}, attributes) # summary and description are mandatory fields the attributes hash will contain all the optional info that you need for your ticket, have to use the fields provided by Trac api.
 
-== Finding comments
+## Finding comments
       
         comments = project.tickets.first.comments # All the tickets facility for searchs are available for comments as well
 
