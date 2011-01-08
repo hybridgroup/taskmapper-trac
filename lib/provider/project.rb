@@ -13,7 +13,8 @@ module TicketMaster::Provider
           @system_data = {:client => object}
           unless object.is_a? Hash
             hash = {:repository => object.url,
-                    :user => object.username}
+                    :user => object.username,
+                    :name => object.name}
             
           else
             hash = object
@@ -69,7 +70,9 @@ module TicketMaster::Provider
 
       private
       def collect_tickets(tickets)
-        tickets.collect { |ticket_id| TicketMaster::Provider::Trac::Ticket.find_by_id(ticket_id, self[:name]) }
+        tickets.collect do |ticket_id| 
+          TicketMaster::Provider::Trac::Ticket.find_by_id(ticket_id, self[:name]) 
+        end
       end
 
     end

@@ -9,8 +9,9 @@ module TicketMaster::Provider
       API = TracAPI
       def initialize(*object)
         if object.first
-          object = object.shift
-          project_id = object.shift
+          args = object
+          object = args.shift
+          project_id = args.shift
           unless object.is_a? Hash
             @system_data = {:client => object}
             hash = {:id => object.id,
