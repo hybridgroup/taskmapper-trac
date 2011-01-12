@@ -12,7 +12,7 @@ module TicketMaster::Provider
       @authentication ||= TicketMaster::Authenticator.new(auth)
       auth = @authentication
       @trac = ::Trac.new(auth.url, auth.username, auth.password)
-      TracAPI.new @trac, auth.url, auth.username, auth.password
+      TicketMaster::Provider::Trac.api = {:trac => @trac, :url => auth.url, :username => auth.username, :password => auth.password}
     end
 
     # declare needed overloaded methods here
@@ -26,6 +26,14 @@ module TicketMaster::Provider
       else
         TicketMaster::Provider::Trac::Project
       end
+    end
+
+    def self.api=(trac_instance)
+      @api = trac_instance
+    end
+
+    def self.api
+      @api
     end
 
   end

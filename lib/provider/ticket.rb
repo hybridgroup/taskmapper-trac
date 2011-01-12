@@ -6,7 +6,6 @@ module TicketMaster::Provider
     class Ticket < TicketMaster::Provider::Base::Ticket
       # declare needed overloaded methods here
 
-      API = TracAPI
       def initialize(*object)
         if object.first
           args = object
@@ -57,8 +56,9 @@ module TicketMaster::Provider
       end
 
       def self.find_by_id(id, project_id)
+        trac = TicketMaster::Provider::Trac.api
         retryable(:tries => 5) do 
-          self.new API.api.tickets.get(id), project_id
+          self.new trac[:trac].tickets.get(id), project_id
         end
       end
 
@@ -66,8 +66,9 @@ module TicketMaster::Provider
         mandatory = options.shift
         attributes = {}
         attributes ||= options.shift
+        trac = TicketMaster::Provider::Trac.api
         begin
-          self.find_by_id API.api.tickets.create(mandatory[:summary], mandatory[:description], attributes)
+          self.find_by_id trac[:trac].tickets.create(mandatory[:summary], mandatory[:description], attributes)
         rescue
           self
         end
@@ -81,8 +82,16 @@ module TicketMaster::Provider
           end
         elsif options.first.is_a? Hash
           hash = options.first
-          comments.select do |key, value|
-            hash[key] == value
+          comments.select do |comment|
+            hash.inject(true) do |memo, kv|
+              key, value = kv
+              begin
+                memo &= comment.send(key) == value
+              rescue
+                memo = false
+              end
+              memo
+            end
           end
         else
           comments

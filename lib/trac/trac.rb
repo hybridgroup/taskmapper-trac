@@ -1,34 +1,10 @@
 # code to communicate with your backend goes here...
 
-class TracAPI
-  def initialize(trac, url, username, password)
-    @@api = trac
-    @@username = username
-    @@url = url
-    @@password = password
-  end
-
-  def self.api
-    @@api
-  end
-
-  def self.url
-    @@url
-  end
-
-  def self.username
-    @@username
-  end
-
-  def self.password
-    @@password
-  end
-end
-
 class CommentUtil
 
   def initialize(ticket_id)
-    @doc = Nokogiri::HTML(open("#{TracAPI.url}/ticket/#{ticket_id}", :http_basic_authentication=>[TracAPI.username, TracAPI.password]))
+    trac = TicketMaster::Provider::Trac.api
+    @doc = Nokogiri::HTML(open("#{trac[:url]}/ticket/#{ticket_id}", :http_basic_authentication=>[trac[:username], trac[:password]]))
     @ticket_id = ticket_id
   end
 
