@@ -7,8 +7,8 @@ begin
     gem.name = "ticketmaster-trac"
     gem.summary = %Q{Ticketmaster Provider for Trac}
     gem.description = %Q{Allows ticketmaster to interact with Your System.}
-    gem.email = "george.rafael@gmail.com"
-    gem.homepage = "http://bandw.tumblr.com"
+    gem.email = "rafael@hybridgroup.com"
+    gem.homepage = "http://github.com/hybridgroup/ticketmaster-trac"
     gem.authors = ["Rafael George"]
     gem.add_development_dependency "rspec", ">= 1.2.9"
     gem.add_dependency "ticketmaster", ">= 0.1.0"
