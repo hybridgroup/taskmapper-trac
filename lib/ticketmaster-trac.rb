@@ -1,3 +1,4 @@
+require 'ticketmaster'
 require 'trac4r'
 require 'nokogiri'
 require 'open-uri'
