@@ -1,4 +1,3 @@
-require 'ticketmaster'
 module TicketMaster::Provider
   # This is the Yoursystem Provider for ticketmaster
   module Trac
