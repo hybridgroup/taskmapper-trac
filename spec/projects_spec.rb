@@ -20,6 +20,7 @@ describe "Ticketmaster::Provider::Trac::Project" do
     @projects = @ticketmaster.projects([@project_id])
     @projects.should be_an_instance_of(Array)
     @projects.first.should be_an_instance_of(@klass)
+    @projects.first.id.should == 1 
   end
 
   it "should be able to load all projects from attributes" do 

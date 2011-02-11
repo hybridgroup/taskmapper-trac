@@ -6,6 +6,7 @@ module TicketMaster::Provider
     class Project < TicketMaster::Provider::Base::Project
       # declare needed overloaded methods here
       
+      attr_reader :created_at, :updated_at
       def initialize(*object)
         if object.first
           object = object.first
@@ -14,7 +15,6 @@ module TicketMaster::Provider
             hash = {:repository => object.url,
                     :user => object.username,
                     :name => object.name}
-            
           else
             hash = object
           end
@@ -39,6 +39,10 @@ module TicketMaster::Provider
         if mode.is_a? String
           self.new({:url => trac[:url], :username => trac[:username], :name=> "#{trac[:username]}-project"})
         end
+      end
+
+      def id
+        1
       end
 
       def ticket(*options)
