@@ -75,7 +75,7 @@ module TicketMaster::Provider
       end
 
       def comments(*options)
-        comments = CommentUtil.new(self.id).comments.collect { |comment| TicketMaster::Provider::Trac::Comment.new comment }
+        comments = CommentUtil.new(self.id,TicketMaster::Provider::Trac.api).comments.collect { |comment| TicketMaster::Provider::Trac::Comment.new comment }
         if options.first.is_a? Array
           comments.select do |comment|
             comment if options.first.any? { |id| id == comment.id }
@@ -99,7 +99,7 @@ module TicketMaster::Provider
       end
 
       def comment(*options)
-        comments = CommentUtil.new(self.id).comments.collect { |comment| TicketMaster::Provider::Trac::Comment.new comment }
+        comments = CommentUtil.new(self.id,TicketMaster::Provider::Trac.api).comments.collect { |comment| TicketMaster::Provider::Trac::Comment.new comment }
         if options.empty?
           TicketMaster::Provider::Trac::Comment.new
         elsif options.first.is_a? Fixnum

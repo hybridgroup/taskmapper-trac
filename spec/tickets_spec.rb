@@ -28,11 +28,6 @@ describe "Ticketmaster::Provider::Trac::Ticket" do
     @tickets.first.summary.should == 'test'
   end
 
-  it "should show return summary from text method" do 
-    @ticket = @project.tickets.first
-    @ticket.text.should == ""
-  end
-
   it "should be able to load all tickets using attributes" do
     @tickets = @project.tickets(:status => "!closed")
     @tickets.should be_an_instance_of(Array)
