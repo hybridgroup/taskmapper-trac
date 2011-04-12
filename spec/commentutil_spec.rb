@@ -4,7 +4,7 @@ describe "CommentUtil" do
 
   before(:each) do 
     trac = {:url => 'http://localhost/trac', :username => 'username', :password => 'password'}
-    @comment_util = CommentUtil.new(1, trac, Nokogiri::HTML(File.open('commentutils-data.html')))
+    @comment_util = CommentUtil.new(1, trac, Nokogiri::HTML(File.open('spec/commentutils-data.html')))
   end
 
   it "should return all comments for a ticket" do 

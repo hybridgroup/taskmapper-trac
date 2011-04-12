@@ -2,7 +2,7 @@
 
 class CommentUtil
 
-  def initialize(ticket_id, trac, doc)
+  def initialize(ticket_id, trac, doc = nil)
     @doc = doc || Nokogiri::HTML(open("#{trac[:url]}/ticket/#{ticket_id}", :http_basic_authentication=>[trac[:username], trac[:password]]))
     @ticket_id = ticket_id
   end
