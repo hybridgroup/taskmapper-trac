@@ -2,8 +2,8 @@
 
 class CommentUtil
 
-  def initialize(ticket_id, trac)
-    @doc = Nokogiri::HTML(open("#{trac[:url]}/ticket/#{ticket_id}", :http_basic_authentication=>[trac[:username], trac[:password]]))
+  def initialize(ticket_id, trac, doc)
+    @doc = doc || Nokogiri::HTML(open("#{trac[:url]}/ticket/#{ticket_id}", :http_basic_authentication=>[trac[:username], trac[:password]]))
     @ticket_id = ticket_id
   end
 
@@ -13,7 +13,9 @@ class CommentUtil
       body = @doc.css('div.comment p')
       authors = @doc.css('h3.change')
       comment_id += 1
-      build_comment_hash(value, comment_id, body[comment_id-1].text, authors[comment_id-1].content)
+      unless body[comment_id-1].nil? || authors[comment_id-1].nil?
+        build_comment_hash(value, comment_id, body[comment_id-1].text, authors[comment_id-1].content)
+      end
     end
   end
 
