@@ -14,7 +14,7 @@ class CommentUtil
       authors = @doc.css('h3.change')
       comment_id += 1
       unless body[comment_id-1].nil? || authors[comment_id-1].nil?
-        build_comment_hash(value, comment_id, body[comment_id-1].text, authors[comment_id-1].content)
+        Hashie::Mash.new build_comment_hash(value, comment_id, body[comment_id-1].text, authors[comment_id-1].content)
       end
     end
   end

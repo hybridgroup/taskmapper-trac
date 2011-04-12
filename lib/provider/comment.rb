@@ -13,7 +13,7 @@ module TicketMaster::Provider
           object = object.first
           unless object.is_a? Hash
             @system_data = {:client => object}
-            hash = {:id => object.id,
+            hash = {:id => object[:id],
               :author => object.author,
               :body => object.body,
               :ticket_id => object.ticket_id,
@@ -40,6 +40,10 @@ module TicketMaster::Provider
         rescue
           self[:updated_at]
         end
+      end
+
+      def id
+        self[:id]
       end
 
     end
