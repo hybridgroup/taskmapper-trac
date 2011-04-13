@@ -46,6 +46,15 @@ module TicketMaster::Provider
         self[:id]
       end
 
+      def self.find_all(ticket_id)
+        comments = CommentUtil.new(ticket_id,TicketMaster::Provider::Trac.api).comments
+        puts comments.inspect
+        unless comments.empty?
+          comments = comments.collect { |comment| TicketMaster::Provider::Trac::Comment.new comment }
+        end
+        comments
+      end
+
     end
   end
 end
