@@ -75,39 +75,16 @@ module TicketMaster::Provider
       end
 
       def comments(*options)
-        comments = CommentUtil.new(self.id,TicketMaster::Provider::Trac.api).comments.collect { |comment| TicketMaster::Provider::Trac::Comment.new comment }
-        if options.first.is_a? Array
-          comments.select do |comment|
-            comment if options.first.any? { |id| id == comment.id }
-          end
-        elsif options.first.is_a? Hash
-          hash = options.first
-          comments.select do |comment|
-            hash.inject(true) do |memo, kv|
-              key, value = kv
-              begin
-                memo &= comment.send(key) == value
-              rescue
-                memo = false
-              end
-              memo
-            end
-          end
-        else
-          comments
-        end
+        Comment.find(self.project_id, self.id, options)
       end
 
       def comment(*options)
-        comments = CommentUtil.new(self.id,TicketMaster::Provider::Trac.api).comments.collect { |comment| TicketMaster::Provider::Trac::Comment.new comment }
         if options.empty?
           TicketMaster::Provider::Trac::Comment.new
         elsif options.first.is_a? Fixnum
-          comments.select { |comment| comment[:id] == options.first }.first
+          Comment.find_by_id(self.project_id, self.id, options.first)  
         elsif options.first.is_a? Hash
-          comments.select do |key, value| 
-            options.first[key] == value
-          end.first
+          Comment.find_by_attributes(self.project_id, self.id, options.first).first
         end
       end
 
