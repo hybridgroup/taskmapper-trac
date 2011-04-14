@@ -40,19 +40,11 @@ module TicketMaster::Provider
       end
 
       def created_at
-        begin
-          normalize_datetime(self[:created_at]) 
-        rescue
-          self[:created_at]
-        end
+        normalize_datetime(self[:created_at]) 
       end
 
       def updated_at
-        begin
-          normalize_datetime(self[:updated_at])
-        rescue
-          self[:updated_at]
-        end
+        normalize_datetime(self[:updated_at])
       end
 
       def self.find_by_id(id, project_id)
