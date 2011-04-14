@@ -100,7 +100,7 @@ module TicketMaster::Provider
 
       # Extracted this code from facet http://api.mackframework.com/mack-facets/classes/Kernel.html
       def self.retryable(options = {}, &block)
-        opts = { :tries => 1, :on => Exception }.merge(options)
+        opts = { :tries => 5, :on => Exception }.merge(options)
 
         retry_exception, retries = opts[:on], opts[:tries]
 
