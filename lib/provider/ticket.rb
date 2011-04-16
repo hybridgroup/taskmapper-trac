@@ -87,7 +87,7 @@ module TicketMaster::Provider
 
       private
       def normalize_datetime(datetime)
-        Time.mktime(datetime.year, datetime.month, datetime.day, datetime.hour, datetime.min, datetime.sec)
+        datetime = datetime.to_time
       end
 
       # Extracted this code from facet http://api.mackframework.com/mack-facets/classes/Kernel.html
