@@ -13,8 +13,8 @@ class CommentUtil
       body = @doc.css('div.comment p')
       authors = @doc.css('h3.change')
       comment_id += 1
-      unless body[comment_id-1].nil? || authors[comment_id-1].nil?
-        build_comment_hash(value, comment_id, body[comment_id-1].text, authors[comment_id-1].content)
+      unless body[comment_id].nil? || authors[comment_id].nil?
+        build_comment_hash(value, comment_id, body[comment_id].text, authors[comment_id].content)
       end
     end
   end
