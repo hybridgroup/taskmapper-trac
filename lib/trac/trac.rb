@@ -10,11 +10,11 @@ class CommentUtil
   def comments
     comment_id = 0
     @doc.css('h3.change a.timeline').collect do |value|
-      body = @doc.css('div.comment p')
+      body = @doc.css('div.comment')
       authors = @doc.css('h3.change')
       comment_id += 1
-      unless body[comment_id].nil? || authors[comment_id].nil?
-        build_comment_hash(value, comment_id, body[comment_id].text, authors[comment_id].content)
+      unless body[comment_id-1].nil? || authors[comment_id-1].nil?
+        build_comment_hash(value, comment_id, body[comment_id-1].text, authors[comment_id-1].content)
       end
     end
   end
@@ -25,7 +25,7 @@ class CommentUtil
     comment[:created_at] = date_from_attributes(value)
     comment[:updated_at] = date_from_attributes(value)
     comment[:ticket_id] = @ticket_id
-    comment[:body] = body
+    comment[:body] = body.chomp
     comment[:author] = normalize_author_field(author)
     comment[:id] = comment_id
     comment
