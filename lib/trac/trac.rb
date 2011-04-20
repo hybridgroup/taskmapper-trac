@@ -14,7 +14,10 @@ class CommentUtil
       authors = @doc.css('h3.change')
       comment_id += 1
       unless body[comment_id-1].nil? || authors[comment_id-1].nil?
-        build_comment_hash(value, comment_id, body[comment_id-1].text, authors[comment_id-1].content)
+        comment_body = body[comment_id-1].text
+        if comment_body =~ /\w+/
+          build_comment_hash(value, comment_id, comment_body, authors[comment_id-1].content)
+        end
       end
     end
   end
@@ -25,7 +28,7 @@ class CommentUtil
     comment[:created_at] = date_from_attributes(value)
     comment[:updated_at] = date_from_attributes(value)
     comment[:ticket_id] = @ticket_id
-    comment[:body] = body.chomp
+    comment[:body] = body
     comment[:author] = normalize_author_field(author)
     comment[:id] = comment_id
     comment
