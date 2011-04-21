@@ -35,7 +35,7 @@ class CommentUtil
   end
 
   def normalize_author_field(author)
-    author.strip.split(/by/)[1]
+    author.strip.split(/by/)[1].split(/@/)[0]
   end
 
   def date_from_attributes(value)
