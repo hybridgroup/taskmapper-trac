@@ -54,6 +54,24 @@ module TicketMaster::Provider
         end
       end
 
+      def self.find(project_id, *options)
+        mode = options[0].first
+        trac = TicketMaster::Provider::Trac.api
+        if options[0].empty?
+          self.find_all(project_id, trac[:trac].tickets.list)
+        elsif mode.is_a? Array
+          self.find_all(project_id, mode)
+        elsif mode.is_a? Hash
+          self.find_all(project_id, trac[:trac].tickets.query(mode))
+        end
+      end
+
+      def self.find_all(project_id, tickets)
+        tickets.collect do |ticket_id| 
+          self.find_by_id(ticket_id, project_id) 
+        end
+      end
+
       def self.create(*options)
         mandatory = options.shift
         attributes = {}

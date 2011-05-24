@@ -51,7 +51,7 @@ module TicketMaster::Provider
           options = options.first
           trac = TicketMaster::Provider::Trac.api
           if options.is_a? Hash
-            TicketMaster::Provider::Trac::Ticket.find_by_id(trac[:trac].tickets.query(options).first, self[:name])
+            Ticket.find_by_id(trac[:trac].tickets.query(options).first, self[:name])
           end
         else
           TicketMaster::Provider::Trac::Ticket
@@ -60,26 +60,11 @@ module TicketMaster::Provider
 
       def ticket!(*options)
         options = options.first
-        TicketMaster::Provider::Trac::Ticket.create options
+        Ticket.create options
       end
 
       def tickets(*options)
-        mode = options.first
-        trac = TicketMaster::Provider::Trac.api
-        if options.empty?
-          collect_tickets(trac[:trac].tickets.list)
-        elsif mode.is_a? Array
-          collect_tickets(mode)
-        elsif mode.is_a? Hash
-          collect_tickets(trac[:trac].tickets.query(mode))
-        end
-      end
-
-      private
-      def collect_tickets(tickets)
-        tickets.collect do |ticket_id| 
-          TicketMaster::Provider::Trac::Ticket.find_by_id(ticket_id, self[:name]) 
-        end
+        Ticket.find(self.name, options)
       end
 
     end
