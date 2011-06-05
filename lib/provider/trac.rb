@@ -36,5 +36,13 @@ module TicketMaster::Provider
       @api
     end
 
+    def valid?
+      begin
+        !@trac.api_version.nil?
+      rescue
+        false
+      end
+    end
+
   end
 end
