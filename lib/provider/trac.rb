@@ -38,8 +38,9 @@ module TicketMaster::Provider
 
     def valid?
       begin
-        !@trac.api_version.nil?
-      rescue
+        @trac.tickets.list
+        true
+      rescue Exception
         false
       end
     end
