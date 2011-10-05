@@ -1,3 +1,4 @@
+require 'active_support'
 require 'ticketmaster'
 require 'openssl'
 require 'trac4r'
