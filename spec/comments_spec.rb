@@ -15,7 +15,6 @@ describe "Ticketmaster::Provider::Trac::Comment" do
   end
 
   it "should load all comments from a ticket" do 
-    
     @ticket.comments.should be_an_instance_of(Array)
     @ticket.comments.first.should be_an_instance_of(@klass)
   end

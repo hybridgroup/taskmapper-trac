@@ -54,7 +54,7 @@ module TicketMaster::Provider
       def self.find(project_id, ticket_id, *options)
         if options[0].first.is_a? Array
           self.find_all(ticket_id).select do |comment|
-            comment if options[0].first.any? { |id| id == comment.id }
+            comment if options[0].any? { |id| id == comment.id }
           end
         elsif options[0].first.is_a? Hash
           self.find_by_attributes(project_id, ticket_id, options[0].first)
@@ -69,7 +69,7 @@ module TicketMaster::Provider
 
       def self.find_all(ticket_id)
         comments = CommentUtil.new(ticket_id,TicketMaster::Provider::Trac.api).comments
-        comments.select { |comment| !comment.nil? }.collect do |comment| 
+        comments.compact.collect do |comment| 
           TicketMaster::Provider::Trac::Comment.new comment 
         end
       end

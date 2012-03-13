@@ -49,7 +49,7 @@ module TicketMaster::Provider
 
       def self.find_by_id(id, project_id)
         trac = TicketMaster::Provider::Trac.api
-        retryable(:tries => 5) do 
+        retryable(:tries => 10) do 
           self.new trac[:trac].tickets.get(id), project_id
         end
       end
