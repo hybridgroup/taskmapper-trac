@@ -4,20 +4,24 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{ticketmaster-trac}
-  s.version = "0.5.5"
+  s.name = "ticketmaster-trac"
+  s.version = "0.5.6"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = [%q{Rafael George}]
-  s.date = %q{2011-11-07}
-  s.description = %q{Allows ticketmaster to interact with Your System.}
-  s.email = %q{rafael@hybridgroup.com}
+  s.authors = ["Rafael George"]
+  s.date = "2012-03-23"
+  s.description = "Allows ticketmaster to interact with Your System."
+  s.email = "rafael@hybridgroup.com"
   s.extra_rdoc_files = [
     "LICENSE",
     "README.md"
   ]
   s.files = [
+    ".rbenv-gemsets",
     ".rvmrc",
+    ".travis.yml",
+    "Gemfile",
+    "Gemfile.lock",
     "LICENSE",
     "README.md",
     "Rakefile",
@@ -39,28 +43,46 @@ Gem::Specification.new do |s|
     "spec/tickets_spec.rb",
     "ticketmaster-trac.gemspec"
   ]
-  s.homepage = %q{http://github.com/hybridgroup/ticketmaster-trac}
-  s.require_paths = [%q{lib}]
-  s.rubygems_version = %q{1.8.6}
-  s.summary = %q{Ticketmaster Provider for Trac}
+  s.homepage = "http://github.com/hybridgroup/ticketmaster-trac"
+  s.require_paths = ["lib"]
+  s.rubygems_version = "1.8.15"
+  s.summary = "Ticketmaster Provider for Trac"
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_development_dependency(%q<rspec>, [">= 1.2.9"])
-      s.add_runtime_dependency(%q<ticketmaster>, [">= 0.6.0"])
+      s.add_runtime_dependency(%q<ticketmaster>, ["= 0.6.10"])
+      s.add_runtime_dependency(%q<trac4r>, ["~> 1.2"])
+      s.add_runtime_dependency(%q<nokogiri>, ["~> 1.5"])
+      s.add_development_dependency(%q<rspec>, ["~> 2.8"])
+      s.add_development_dependency(%q<bundler>, ["~> 1.1"])
+      s.add_development_dependency(%q<jeweler>, ["~> 1.6"])
+      s.add_development_dependency(%q<simplecov>, ["~> 0.5"])
+      s.add_development_dependency(%q<rcov>, ["~> 1.0"])
       s.add_runtime_dependency(%q<trac4r>, [">= 0"])
       s.add_runtime_dependency(%q<nokogiri>, [">= 0"])
     else
-      s.add_dependency(%q<rspec>, [">= 1.2.9"])
-      s.add_dependency(%q<ticketmaster>, [">= 0.6.0"])
+      s.add_dependency(%q<ticketmaster>, ["= 0.6.10"])
+      s.add_dependency(%q<trac4r>, ["~> 1.2"])
+      s.add_dependency(%q<nokogiri>, ["~> 1.5"])
+      s.add_dependency(%q<rspec>, ["~> 2.8"])
+      s.add_dependency(%q<bundler>, ["~> 1.1"])
+      s.add_dependency(%q<jeweler>, ["~> 1.6"])
+      s.add_dependency(%q<simplecov>, ["~> 0.5"])
+      s.add_dependency(%q<rcov>, ["~> 1.0"])
       s.add_dependency(%q<trac4r>, [">= 0"])
       s.add_dependency(%q<nokogiri>, [">= 0"])
     end
   else
-    s.add_dependency(%q<rspec>, [">= 1.2.9"])
-    s.add_dependency(%q<ticketmaster>, [">= 0.6.0"])
+    s.add_dependency(%q<ticketmaster>, ["= 0.6.10"])
+    s.add_dependency(%q<trac4r>, ["~> 1.2"])
+    s.add_dependency(%q<nokogiri>, ["~> 1.5"])
+    s.add_dependency(%q<rspec>, ["~> 2.8"])
+    s.add_dependency(%q<bundler>, ["~> 1.1"])
+    s.add_dependency(%q<jeweler>, ["~> 1.6"])
+    s.add_dependency(%q<simplecov>, ["~> 0.5"])
+    s.add_dependency(%q<rcov>, ["~> 1.0"])
     s.add_dependency(%q<trac4r>, [">= 0"])
     s.add_dependency(%q<nokogiri>, [">= 0"])
   end
