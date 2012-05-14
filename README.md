@@ -1,11 +1,11 @@
-# ticketmaster-trac
+# taskmapper-trac
 
-This is a provider for [ticketmaster](http://ticketrb.com). It provides interoperability with [Trac](http://trac.edgewall.org) and it's issue tracking system through the ticketmaster gem.
+This is a provider for [taskmapper](http://ticketrb.com). It provides interoperability with [Trac](http://trac.edgewall.org) and it's issue tracking system through the taskmapper gem.
 
 # Usage and Examples
 
-First we have to instantiate a new ticketmaster instance, your trac installation should have api access enable:
-    trac = TicketMaster.new(:trac, {:username=> 'foo', :password => "bar", :url => "http://tracserver/username/project/trac"}) 
+First we have to instantiate a new taskmapper instance, your trac installation should have api access enable:
+    trac = taskmapper.new(:trac, {:username=> 'foo', :password => "bar", :url => "http://tracserver/username/project/trac"}) 
 
 If you do not pass in the url, username and password, you won't get any information.
 
@@ -30,15 +30,15 @@ Right now Trac doesn't support project handling, that's why you will use a proje
 ## Requirements
 
 * rubygems (obviously)
-* ticketmaster gem (latest version preferred)
+* taskmapper gem (latest version preferred)
 * jeweler gem (only if you want to repackage and develop)
 * trac4r
 
-The ticketmaster gem should automatically be installed during the installation of this gem if it is not already installed.
+The taskmapper gem should automatically be installed during the installation of this gem if it is not already installed.
 
 ## Other Notes
 
-Since this and the ticketmaster gem is still primarily a work-in-progress, minor changes may be incompatible with previous versions. Please be careful about using and updating this gem in production.
+Since this and the taskmapper gem is still primarily a work-in-progress, minor changes may be incompatible with previous versions. Please be careful about using and updating this gem in production.
 
 If you see or find any issues, feel free to open up an issue report.
 

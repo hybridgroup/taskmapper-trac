@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
-describe "CommentUtil" do 
+describe CommentUtil do 
 
   before(:each) do 
     trac = {:url => 'http://localhost/trac', :username => 'username', :password => 'password'}

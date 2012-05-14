@@ -1,11 +1,11 @@
-module TicketMaster::Provider
+module TaskMapper::Provider
   module Trac
-    # The comment class for ticketmaster-yoursystem
+    # The comment class for taskmapper-yoursystem
     #
-    # Do any mapping between Ticketmaster and your system's comment model here
+    # Do any mapping between taskmapper and your system's comment model here
     # versions of the ticket.
     #
-    class Comment < TicketMaster::Provider::Base::Comment
+    class Comment < TaskMapper::Provider::Base::Comment
       # declare needed overloaded methods here
 
       def initialize(*object)
@@ -68,9 +68,9 @@ module TicketMaster::Provider
       end
 
       def self.find_all(ticket_id)
-        comments = CommentUtil.new(ticket_id,TicketMaster::Provider::Trac.api).comments
+        comments = CommentUtil.new(ticket_id,TaskMapper::Provider::Trac.api).comments
         comments.compact.collect do |comment| 
-          TicketMaster::Provider::Trac::Comment.new comment 
+          TaskMapper::Provider::Trac::Comment.new comment 
         end
       end
 

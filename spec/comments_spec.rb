@@ -1,12 +1,12 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
-describe "Ticketmaster::Provider::Trac::Comment" do
+describe TaskMapper::Provider::Trac::Comment do
   before(:each) do 
-    @ticketmaster = TicketMaster.new(:trac, {:username => 'george.rafael@gmail.com', :password => '123456', :url => 'http://pl3.projectlocker.com/cored/testrepo/trac'})
-    @project = @ticketmaster.projects.first
-    @project.stub!(:tickets).and_return([TicketMaster::Provider::Trac::Ticket.new])
+    @taskmapper = TaskMapper.new(:trac, {:username => 'george.rafael@gmail.com', :password => '123456', :url => 'http://pl3.projectlocker.com/cored/testrepo/trac'})
+    @project = @taskmapper.projects.first
+    @project.stub!(:tickets).and_return([TaskMapper::Provider::Trac::Ticket.new])
     @ticket = @project.tickets.first
-    @klass = TicketMaster::Provider::Trac::Comment
+    @klass = TaskMapper::Provider::Trac::Comment
     @comment_1 = @klass.new(:id => 1)
     @comment_2 = @klass.new(:id => 2)
     @comments = [@comment_1, @comment_2]

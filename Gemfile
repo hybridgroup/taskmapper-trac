@@ -1,6 +1,6 @@
 source :rubygems
 
-gem "ticketmaster", "0.6.10"
+gem "taskmapper", "~> 0.8"
 gem "trac4r", "~> 1.2"
 gem "nokogiri", "~> 1.5"
 

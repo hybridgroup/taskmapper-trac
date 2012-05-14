@@ -4,11 +4,11 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "ticketmaster-trac"
-    gem.summary = %Q{Ticketmaster Provider for Trac}
-    gem.description = %Q{Allows ticketmaster to interact with Your System.}
+    gem.name = "taskmapper-trac"
+    gem.summary = %Q{taskmapper Provider for Trac}
+    gem.description = %Q{Allows taskmapper to interact with Your System.}
     gem.email = "rafael@hybridgroup.com"
-    gem.homepage = "http://github.com/hybridgroup/ticketmaster-trac"
+    gem.homepage = "http://github.com/hybridgroup/taskmapper-trac"
     gem.authors = ["Rafael George"]
     gem.add_dependency "trac4r"
     gem.add_dependency "nokogiri"
@@ -42,7 +42,7 @@ Rake::RDocTask.new do |rdoc|
   version = File.exist?('VERSION') ? File.read('VERSION') : ""
 
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "ticketmaster-trac #{version}"
+  rdoc.title = "taskmapper-trac #{version}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end

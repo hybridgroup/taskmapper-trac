@@ -1,18 +1,18 @@
-module TicketMaster::Provider
-  # This is the Yoursystem Provider for ticketmaster
+module TaskMapper::Provider
+  # This is the Yoursystem Provider for taskmapper
   module Trac
-    include TicketMaster::Provider::Base
+    include TaskMapper::Provider::Base
     
-    # This is for cases when you want to instantiate using TicketMaster::Provider::Yoursystem.new(auth)
+    # This is for cases when you want to instantiate using TaskMapper::Provider::Yoursystem.new(auth)
     def self.new(auth = {})
-      TicketMaster.new(:trac, auth)
+      TaskMapper.new(:trac, auth)
     end
 
     def authorize(auth = {})
-      @authentication ||= TicketMaster::Authenticator.new(auth)
+      @authentication ||= TaskMapper::Authenticator.new(auth)
       auth = @authentication
       @trac = ::Trac.new(auth.url, auth.username, auth.password)
-      TicketMaster::Provider::Trac.api = {:trac => @trac, :url => auth.url, :username => auth.username, :password => auth.password}
+      TaskMapper::Provider::Trac.api = {:trac => @trac, :url => auth.url, :username => auth.username, :password => auth.password}
     end
 
     # declare needed overloaded methods here
@@ -24,7 +24,7 @@ module TicketMaster::Provider
       unless options.empty?
         Project.new({:url => @authentication.url, :username => @authentication.username, :name => "#{@authentication.username}-project"})
       else
-        TicketMaster::Provider::Trac::Project
+        TaskMapper::Provider::Trac::Project
       end
     end
 

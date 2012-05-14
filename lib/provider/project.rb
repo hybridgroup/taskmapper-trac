@@ -1,9 +1,9 @@
-module TicketMaster::Provider
+module TaskMapper::Provider
   module Trac 
-    # Project class for ticketmaster-yoursystem
+    # Project class for taskmapper-yoursystem
     # 
     # 
-    class Project < TicketMaster::Provider::Base::Project
+    class Project < TaskMapper::Provider::Base::Project
       # declare needed overloaded methods here
       
       attr_reader :created_at, :updated_at
@@ -36,7 +36,7 @@ module TicketMaster::Provider
 
       def self.find(*options)
         mode = options.first
-        trac = TicketMaster::Provider::Trac.api
+        trac = TaskMapper::Provider::Trac.api
         if mode.is_a? String
           self.new({:url => trac[:url], :username => trac[:username], :name=> "#{trac[:username]}-project"})
         end
@@ -49,12 +49,12 @@ module TicketMaster::Provider
       def ticket(*options)
         unless options.empty?
           options = options.first
-          trac = TicketMaster::Provider::Trac.api
+          trac = TaskMapper::Provider::Trac.api
           if options.is_a? Hash
             Ticket.find_by_id(trac[:trac].tickets.query(options).first, self[:name])
           end
         else
-          TicketMaster::Provider::Trac::Ticket
+          TaskMapper::Provider::Trac::Ticket
         end
       end
 

@@ -1,14 +1,14 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
-describe "Ticketmaster::Provider::Trac::Ticket" do
+describe TaskMapper::Provider::Trac::Ticket do
   before(:all) do 
     @project_id = 'demo-0.11'
   end
 
   before(:each) do 
-    @ticketmaster = TicketMaster.new(:trac, {:url => 'http://pl3.projectlocker.com/cored/testrepo/trac', :username => 'george.rafael@gmail.com', :password => '123456'})
-    @project = @ticketmaster.project(@project_id)
-    @klass = TicketMaster::Provider::Trac::Ticket
+    @taskmapper = TaskMapper.new(:trac, {:url => 'http://pl3.projectlocker.com/cored/testrepo/trac', :username => 'george.rafael@gmail.com', :password => '123456'})
+    @project = @taskmapper.project(@project_id)
+    @klass = TaskMapper::Provider::Trac::Ticket
     @ticket_1 = @klass.new(:summary => 'test', :status => 'open')
     @tickets = [@ticket_1]
     @project.stub!(:tickets).and_return(@tickets)

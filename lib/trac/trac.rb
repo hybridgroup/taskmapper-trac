@@ -42,5 +42,3 @@ class CommentUtil
     value.attributes["title"].value.split(/\s/)[0]
   end
 end
-
-

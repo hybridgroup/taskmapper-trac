@@ -1,9 +1,9 @@
-module TicketMaster::Provider
+module TaskMapper::Provider
   module Trac
-    # Ticket class for ticketmaster-yoursystem
+    # Ticket class for taskmapper-yoursystem
     #
 
-    class Ticket < TicketMaster::Provider::Base::Ticket
+    class Ticket < TaskMapper::Provider::Base::Ticket
       # declare needed overloaded methods here
 
       def initialize(*object)
@@ -48,7 +48,7 @@ module TicketMaster::Provider
       end
 
       def self.find_by_id(id, project_id)
-        trac = TicketMaster::Provider::Trac.api
+        trac = TaskMapper::Provider::Trac.api
         retryable(:tries => 10) do 
           self.new trac[:trac].tickets.get(id), project_id
         end
@@ -56,7 +56,7 @@ module TicketMaster::Provider
 
       def self.find(project_id, *options)
         mode = options[0].first
-        trac = TicketMaster::Provider::Trac.api
+        trac = TaskMapper::Provider::Trac.api
         if options[0].empty?
           self.find_all(project_id, trac[:trac].tickets.list)
         elsif mode.is_a? Array
@@ -76,7 +76,7 @@ module TicketMaster::Provider
         mandatory = options.shift
         attributes = {}
         attributes ||= options.shift
-        trac = TicketMaster::Provider::Trac.api
+        trac = TaskMapper::Provider::Trac.api
         begin
           self.find_by_id trac[:trac].tickets.create(mandatory[:summary], mandatory[:description], attributes)
         rescue
@@ -90,7 +90,7 @@ module TicketMaster::Provider
 
       def comment(*options)
         if options.empty?
-          TicketMaster::Provider::Trac::Comment.new
+          TaskMapper::Provider::Trac::Comment.new
         elsif options.first.is_a? Fixnum
           Comment.find_by_id(self.project_id, self.id, options.first)  
         elsif options.first.is_a? Hash
