@@ -14,24 +14,24 @@ module TaskMapper::Provider
           unless object.is_a? Hash
             @system_data = {:client => object}
             hash = {:id => object.id,
-              :severity => object.severity,
-              :milestone => object.milestone,
-              :status => object.status,
-              :type => object.type, 
-              :priority => object.priority,
-              :version => object.version,
-              :reporter => object.reporter,
-              :owner => object.owner,
-              :cc => object.cc,
-              :summary => object.summary,
-              :assignee => object.owner,
-              :requestor => object.reporter,
-              :title => object.summary,
-              :project_id => project_id,
-              :description => object.description,
-              :keywords => object.keywords,
-              :created_at => object.created_at,
-              :updated_at => object.updated_at}
+                    :severity => object.severity,
+                    :milestone => object.milestone,
+                    :status => object.status,
+                    :type => object.type, 
+                    :priority => object.priority,
+                    :version => object.version,
+                    :reporter => object.reporter,
+                    :owner => object.owner,
+                    :cc => object.cc,
+                    :summary => object.summary,
+                    :assignee => object.owner,
+                    :requestor => object.reporter,
+                    :title => object.summary,
+                    :project_id => project_id,
+                    :description => object.description,
+                    :keywords => object.keywords,
+                    :created_at => object.created_at,
+                    :updated_at => object.updated_at}
           else
             hash = object
           end
@@ -48,15 +48,14 @@ module TaskMapper::Provider
       end
 
       def self.find_by_id(id, project_id)
-        trac = TaskMapper::Provider::Trac.api
-        retryable(:tries => 10) do 
-          self.new trac[:trac].tickets.get(id), project_id
-        end
+        tries ||= 3
+        self.new trac[:trac].tickets.get(id), project_id
+      rescue ::Trac::TracException
+        retry unless (tries-=1).zero?
       end
 
       def self.find(project_id, *options)
         mode = options[0].first
-        trac = TaskMapper::Provider::Trac.api
         if options[0].empty?
           self.find_all(project_id, trac[:trac].tickets.list)
         elsif mode.is_a? Array
@@ -76,12 +75,13 @@ module TaskMapper::Provider
         mandatory = options.shift
         attributes = {}
         attributes ||= options.shift
-        trac = TaskMapper::Provider::Trac.api
-        begin
-          self.find_by_id trac[:trac].tickets.create(mandatory[:summary], mandatory[:description], attributes)
-        rescue
-          self
-        end
+        self.find_by_id trac[:trac].tickets.create(mandatory[:summary], mandatory[:description], attributes)
+      rescue
+        self
+      end
+
+      def self.trac
+        TaskMapper::Provider::Trac.api
       end
 
       def comments(*options)
@@ -108,19 +108,6 @@ module TaskMapper::Provider
         datetime = datetime.to_time
       end
 
-      # Extracted this code from facet http://api.mackframework.com/mack-facets/classes/Kernel.html
-      def self.retryable(options = {}, &block)
-        opts = { :tries => 5, :on => Exception }.merge(options)
-
-        retry_exception, retries = opts[:on], opts[:tries]
-
-        begin
-          return yield
-        rescue retry_exception
-          retry if (retries -= 1) > 0
-        end
-        yield
-      end
     end
   end
 end
