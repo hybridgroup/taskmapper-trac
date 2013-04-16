@@ -1,6 +1,6 @@
 source :rubygems
 
-gem "taskmapper", "~> 0.8"
+gem "taskmapper"
 gem "trac4r", "~> 1.2"
 gem "nokogiri", "~> 1.5"
 
