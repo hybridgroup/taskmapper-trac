@@ -4,14 +4,14 @@ describe TaskMapper::Provider::Trac::Comment do
   before(:each) do 
     @taskmapper = TaskMapper.new(:trac, {:username => 'george.rafael@gmail.com', :password => '123456', :url => 'http://pl3.projectlocker.com/cored/testrepo/trac'})
     @project = @taskmapper.projects.first
-    @project.stub!(:tickets).and_return([TaskMapper::Provider::Trac::Ticket.new])
+    @project.stub(:tickets).and_return([TaskMapper::Provider::Trac::Ticket.new])
     @ticket = @project.tickets.first
     @klass = TaskMapper::Provider::Trac::Comment
     @comment_1 = @klass.new(:id => 1)
     @comment_2 = @klass.new(:id => 2)
     @comments = [@comment_1, @comment_2]
-    @ticket.stub!(:comments).and_return(@comments)
-    @ticket.stub!(:comment).and_return(@comment_2)
+    @ticket.stub(:comments).and_return(@comments)
+    @ticket.stub(:comment).and_return(@comment_2)
   end
 
   it "should load all comments from a ticket" do 

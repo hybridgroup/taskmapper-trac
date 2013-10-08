@@ -9,9 +9,9 @@ describe TaskMapper::Provider::Trac::Ticket do
   let(:tickets) { [ticket_1] }
 
   before(:each) do 
-    project.stub!(:tickets).and_return(tickets)
-    project.stub!(:ticket).and_return(ticket_1)
-    project.stub!(:ticket!).and_return(ticket_class.new)
+    project.stub(:tickets).and_return(tickets)
+    project.stub(:ticket).and_return(ticket_1)
+    project.stub(:ticket!).and_return(ticket_class.new)
   end
 
   describe "Retrieving tickets" do 
