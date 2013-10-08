@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
+require 'spec_helper'
 
 describe TaskMapper::Provider::Trac::Ticket do
   let(:tm) { TaskMapper.new(:trac, {:url => 'http://pl3.projectlocker.com/cored/testrepo/trac', :username => 'george.rafael@gmail.com', :password => '123456'}) }
