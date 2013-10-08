@@ -1,13 +1,21 @@
 require 'spec_helper'
 
-describe "TaskMapper::Provider::Trac" do
-  before(:each) do
-    @taskmapper = TaskMapper.new(:trac, {:username => 'cored', :password => 'afdzk', :url => 'http://trac.edgewall.org/demo-0.11'})
-  end
+describe TaskMapper::Provider::Trac do
+  let(:tm) { create_instance }
 
-  it "should be able to instantiate a new instance" do
-    @taskmapper.should be_an_instance_of(TaskMapper)
-    @taskmapper.should be_a_kind_of(TaskMapper::Provider::Trac)
-  end
+  describe "#new" do
+    it "creates a new TaskMapper instance" do
+      expect(tm).to be_a TaskMapper
+    end
 
+    it "can be explicitly called as a provider" do
+      tm = TaskMapper::Provider::Trac.new(
+        :username => username,
+        :password => password,
+        :url => base_uri
+      )
+
+      expect(tm).to be_a TaskMapper
+    end
+  end
 end

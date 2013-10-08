@@ -21,4 +21,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "trac4r", "~> 1.2.4"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec", "~> 2.14.1"
+  spec.add_development_dependency "fakeweb", "~> 1.3.0"
 end

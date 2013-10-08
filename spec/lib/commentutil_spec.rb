@@ -1,14 +1,25 @@
 require 'spec_helper'
 
 describe CommentUtil do
-
-  before(:each) do
-    trac = {:url => 'http://localhost/trac', :username => 'username', :password => 'password'}
-    @comment_util = CommentUtil.new(1, trac, Nokogiri::HTML(File.open('spec/commentutils-data.html')))
+  let(:trac) do
+    {
+      :url => 'http://localhost/trac',
+      :username => 'username',
+      :password => 'password'
+    }
   end
 
-  it "should return all comments for a ticket" do
-    @comment_util.comments.should be_instance_of(Array)
-    @comment_util.comments.first[:comment_id] == 1
+  let(:comment_util) do
+    CommentUtil.new(
+      1, trac, Nokogiri::HTML(File.open('spec/commentutils-data.html'))
+    )
+  end
+
+  describe "#comments" do
+    let(:comments) { comment_util.comments }
+
+    it "should return all comments for a ticket" do
+      expect(comments).to be_an Array
+    end
   end
 end
