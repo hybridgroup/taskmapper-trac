@@ -9,7 +9,7 @@ OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 
 require File.dirname(__FILE__) + '/trac/trac'
 
-%w{ trac ticket project comment }.each do |f|
+%w{ trac ticket project comment version }.each do |f|
   require File.dirname(__FILE__) + '/provider/' + f + '.rb';
 end
 
