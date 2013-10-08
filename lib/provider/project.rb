@@ -1,11 +1,11 @@
 module TaskMapper::Provider
-  module Trac 
+  module Trac
     # Project class for taskmapper-yoursystem
-    # 
-    # 
+    #
+    #
     class Project < TaskMapper::Provider::Base::Project
       # declare needed overloaded methods here
-      
+
       attr_reader :created_at, :updated_at
       def initialize(*object)
         if object.first
@@ -22,7 +22,7 @@ module TaskMapper::Provider
           super hash
         end
       end
-      
+
       # copy from this.copy(that) copies that into this
       def copy(project)
         project.tickets.each do |ticket|

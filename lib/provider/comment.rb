@@ -69,8 +69,8 @@ module TaskMapper::Provider
 
       def self.find_all(ticket_id)
         comments = CommentUtil.new(ticket_id,TaskMapper::Provider::Trac.api).comments
-        comments.compact.collect do |comment| 
-          TaskMapper::Provider::Trac::Comment.new comment 
+        comments.compact.collect do |comment|
+          TaskMapper::Provider::Trac::Comment.new comment
         end
       end
 

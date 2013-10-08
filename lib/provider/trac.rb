@@ -2,7 +2,7 @@ module TaskMapper::Provider
   # This is the Yoursystem Provider for taskmapper
   module Trac
     include TaskMapper::Provider::Base
-    
+
     # This is for cases when you want to instantiate using TaskMapper::Provider::Yoursystem.new(auth)
     def self.new(auth = {})
       TaskMapper.new(:trac, auth)
@@ -17,7 +17,7 @@ module TaskMapper::Provider
 
     # declare needed overloaded methods here
     def projects(*options)
-       [Project.new({:url => @authentication.url, :username => @authentication.username, :name => "#{@authentication.username}-project"})]  
+       [Project.new({:url => @authentication.url, :username => @authentication.username, :name => "#{@authentication.username}-project"})]
     end
 
     def project(*options)

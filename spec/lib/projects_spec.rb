@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe TaskMapper::Provider::Trac::Project do
 
-  before(:all) do 
-    @project_id = 'cored-project'  
+  before(:all) do
+    @project_id = 'cored-project'
   end
 
   before(:each) do
@@ -16,14 +16,14 @@ describe TaskMapper::Provider::Trac::Project do
     @taskmapper.projects.first.should be_an_instance_of(@klass)
   end
 
-  it "should be able to load all projects from an array of id's" do 
+  it "should be able to load all projects from an array of id's" do
     @projects = @taskmapper.projects([@project_id])
     @projects.should be_an_instance_of(Array)
     @projects.first.should be_an_instance_of(@klass)
-    @projects.first.id.should == 1 
+    @projects.first.id.should == 1
   end
 
-  it "should be able to load all projects from attributes" do 
+  it "should be able to load all projects from attributes" do
     @projects = @taskmapper.projects(:url => 'http://trac.edgewall.org')
     @projects.should be_an_instance_of(Array)
     @projects.first.should be_an_instance_of(@klass)

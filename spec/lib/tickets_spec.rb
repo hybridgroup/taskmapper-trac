@@ -8,17 +8,17 @@ describe TaskMapper::Provider::Trac::Ticket do
   let(:ticket_1) { ticket_class.new(:summary => 'test', :status => 'open') }
   let(:tickets) { [ticket_1] }
 
-  before(:each) do 
+  before(:each) do
     project.stub(:tickets).and_return(tickets)
     project.stub(:ticket).and_return(ticket_1)
     project.stub(:ticket!).and_return(ticket_class.new)
   end
 
-  describe "Retrieving tickets" do 
-    context :tickets  do 
+  describe "Retrieving tickets" do
+    context :tickets  do
       subject { project.tickets }
       it { should be_an_instance_of Array }
-      context :first do 
+      context :first do
         subject { project.tickets.first }
         it { should be_an_instance_of ticket_class }
       end
@@ -28,25 +28,25 @@ describe TaskMapper::Provider::Trac::Ticket do
       let(:tickets_with_ids) { project.tickets [1] }
       subject { tickets_with_ids }
       it { should be_an_instance_of Array }
-      context :first do 
+      context :first do
         subject { tickets_with_ids.first }
         it { should be_an_instance_of ticket_class }
-        its(:summary) { should == 'test' }  
+        its(:summary) { should == 'test' }
       end
     end
 
-    context "#tickets with attributes" do 
+    context "#tickets with attributes" do
       let(:tickets_with_attributes) { project.tickets(:status => "!closed") }
       subject { tickets_with_attributes }
       it { should be_an_instance_of Array }
-      context :first do 
+      context :first do
         subject { tickets_with_attributes.first }
         it { should be_an_instance_of ticket_class }
         its(:summary) { should == 'test' }
       end
     end
 
-    context :ticket do 
+    context :ticket do
       subject { project.ticket(:status => "!closed") }
       it { should be_an_instance_of ticket_class }
       its(:summary) { should == 'test' }
@@ -54,8 +54,8 @@ describe TaskMapper::Provider::Trac::Ticket do
 
   end
 
-  describe "Creating and updating tickets" do 
-    context :ticket! do 
+  describe "Creating and updating tickets" do
+    context :ticket! do
       subject { project.ticket!({:summary => 'Testing', :description => "Here we go"}) }
       it { should be_an_instance_of ticket_class }
     end

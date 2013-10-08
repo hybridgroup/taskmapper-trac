@@ -5,25 +5,25 @@ This is a provider for [taskmapper](http://ticketrb.com). It provides interopera
 # Usage and Examples
 
 First we have to instantiate a new taskmapper instance, your trac installation should have api access enable:
-    trac = taskmapper.new(:trac, {:username=> 'foo', :password => "bar", :url => "http://tracserver/username/project/trac"}) 
+    trac = taskmapper.new(:trac, {:username=> 'foo', :password => "bar", :url => "http://tracserver/username/project/trac"})
 
 If you do not pass in the url, username and password, you won't get any information.
 
 ## Finding Projects(Repositories)
 
 Right now Trac doesn't support project handling, that's why you will use a project holder which consist of your username and url for the Trac instance.
-	
+
 ## Finding Tickets(Issues)
 
     tickets = project.tickets # All tickets
-    ticket = project.tickets(:status => '!closed') # All non closed tickets, you can specified any type of attributes field based on Trac scheme. ex. :component => 'Web' 
+    ticket = project.tickets(:status => '!closed') # All non closed tickets, you can specified any type of attributes field based on Trac scheme. ex. :component => 'Web'
 
 ## Open Tickets
-    
+
 	ticket = project.ticket!({:summary => "New ticket", :description=> "Body for the very new ticket"}, attributes) # summary and description are mandatory fields the attributes hash will contain all the optional info that you need for your ticket, have to use the fields provided by Trac api.
 
 ## Finding comments
-      
+
         comments = project.tickets.first.comments # All the tickets facility for searchs are available for comments as well
 
 
@@ -44,7 +44,7 @@ If you see or find any issues, feel free to open up an issue report.
 
 
 ## Note on Patches/Pull Requests
- 
+
 * Fork the project.
 * Make your feature addition or bug fix.
 * Add tests for it. This is important so we don't break it in a

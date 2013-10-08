@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe TaskMapper::Provider::Trac::Comment do
-  before(:each) do 
+  before(:each) do
     @taskmapper = TaskMapper.new(:trac, {:username => 'george.rafael@gmail.com', :password => '123456', :url => 'http://pl3.projectlocker.com/cored/testrepo/trac'})
     @project = @taskmapper.projects.first
     @project.stub(:tickets).and_return([TaskMapper::Provider::Trac::Ticket.new])
@@ -14,7 +14,7 @@ describe TaskMapper::Provider::Trac::Comment do
     @ticket.stub(:comment).and_return(@comment_2)
   end
 
-  it "should load all comments from a ticket" do 
+  it "should load all comments from a ticket" do
     @ticket.comments.should be_an_instance_of(Array)
     @ticket.comments.first.should be_an_instance_of(@klass)
   end
@@ -27,7 +27,7 @@ describe TaskMapper::Provider::Trac::Comment do
     @comments[1].should be_an_instance_of(@klass)
   end
 
-  it "should be able to load comments throught attributes" do 
+  it "should be able to load comments throught attributes" do
     @comments = @ticket.comments(:ticket_id => 1)
     @comments.should be_an_instance_of(Array)
     @comments.first.id.should == 1

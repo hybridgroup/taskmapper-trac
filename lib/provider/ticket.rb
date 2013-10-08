@@ -17,7 +17,7 @@ module TaskMapper::Provider
                     :severity => object.severity,
                     :milestone => object.milestone,
                     :status => object.status,
-                    :type => object.type, 
+                    :type => object.type,
                     :priority => object.priority,
                     :version => object.version,
                     :reporter => object.reporter,
@@ -40,7 +40,7 @@ module TaskMapper::Provider
       end
 
       def created_at
-        normalize_datetime(self[:created_at]) 
+        normalize_datetime(self[:created_at])
       end
 
       def updated_at
@@ -66,8 +66,8 @@ module TaskMapper::Provider
       end
 
       def self.find_all(project_id, tickets)
-        tickets.collect do |ticket_id| 
-          self.find_by_id(ticket_id, project_id) 
+        tickets.collect do |ticket_id|
+          self.find_by_id(ticket_id, project_id)
         end
       end
 
@@ -92,7 +92,7 @@ module TaskMapper::Provider
         if options.empty?
           TaskMapper::Provider::Trac::Comment.new
         elsif options.first.is_a? Fixnum
-          Comment.find_by_id(self.project_id, self.id, options.first)  
+          Comment.find_by_id(self.project_id, self.id, options.first)
         elsif options.first.is_a? Hash
           Comment.find_by_attributes(self.project_id, self.id, options.first).first
         end
@@ -100,7 +100,7 @@ module TaskMapper::Provider
 
       def comment!
         warn "Trac doesn't support creation of comments"
-        [] 
+        []
       end
 
       private

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe "TaskMapper::Provider::Trac" do
-  before(:each) do 
+  before(:each) do
     @taskmapper = TaskMapper.new(:trac, {:username => 'cored', :password => 'afdzk', :url => 'http://trac.edgewall.org/demo-0.11'})
   end
 
