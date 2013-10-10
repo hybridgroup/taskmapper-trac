@@ -3,34 +3,57 @@ require 'spec_helper'
 describe TaskMapper::Provider::Trac::Project do
   let(:project_id) { 'cored-project' }
   let(:tm) { create_instance('cored', 'afdzk', 'http://trac.edgewall.org/demo-0.11') }
-  let(:klass) { TaskMapper::Provider::Trac::Project }
+  let(:project_class) { TaskMapper::Provider::Trac::Project }
 
-  it "should be able to load all projects" do
-    tm.projects.should be_an_instance_of(Array)
-    tm.projects.first.should be_an_instance_of(klass)
+  describe "#projects" do
+    context "without arguments" do
+      let(:projects) { tm.projects }
+
+      it "returns an array of all projects" do
+        expect(projects).to be_an Array
+        expect(projects.first).to be_a project_class
+      end
+    end
+
+    context "with an array of project IDs" do
+      let(:projects) { tm.projects [project_id] }
+
+      it "returns an array of matching projects" do
+        expect(projects).to be_an Array
+        expect(projects.first).to be_a project_class
+        expect(projects.first.name).to eq project_id
+      end
+    end
+
+    context "with a hash of project attributes" do
+      let(:projects) { tm.projects :url => 'http://trac.edgewall.org' }
+
+      it "returns an array containing the relevant project" do
+        expect(projects).to be_an Array
+        expect(projects.first).to be_a project_class
+      end
+    end
   end
 
-  it "should be able to load all projects from an array of id's" do
-    projects = tm.projects([project_id])
-    projects.should be_an_instance_of(Array)
-    projects.first.should be_an_instance_of(klass)
-    projects.first.id.should == 1
-  end
+  describe "#project" do
+    context "with a project ID" do
+      let(:project) { tm.project project_id }
 
-  it "should be able to load all projects from attributes" do
-    projects = tm.projects(:url => 'http://trac.edgewall.org')
-    projects.should be_an_instance_of(Array)
-    projects.first.should be_an_instance_of(klass)
-  end
+      it "finds the requested project" do
+        expect(project).to be_a project_class
+        expect(project.name).to eq project_id
+      end
+    end
 
-  it "should be able to load projects using the find method" do
-    tm.project.should == klass
-    tm.project.find(project_id).should be_an_instance_of(klass)
-  end
+    describe "#find" do
+      context "with a project ID" do
+        let(:project) { tm.project.find project_id }
 
-  it "should be able to find a project by name" do
-    project = tm.project(project_id)
-    project.should be_an_instance_of(klass)
-    project.name.should == project_id
+        it "finds the requested project" do
+          expect(project).to be_a project_class
+          expect(project.name).to eq project_id
+        end
+      end
+    end
   end
 end
